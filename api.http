@@ -1,0 +1,101 @@
+### Authentication: get token
+
+POST http://localhost:8000/api/token/
+Accept: application/json; version=1.0
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "123456"
+}
+
+### Authentication Test
+
+GET http://localhost:8000/api/test/
+Accept: application/json; version=1.0
+Authorization: Token d9b70d1185fa06f64b6055a0b5e82f323ffddc89
+
+### Create Restaurant
+
+POST http://localhost:8000/api/restaurant/
+Accept: application/json; version=1.0
+Authorization: Token d9b70d1185fa06f64b6055a0b5e82f323ffddc89
+Content-Type: application/json
+
+{
+  "name": "Test 3"
+}
+
+### Create Menu
+
+POST http://localhost:8000/api/menu/1/
+Accept: application/json; version=1.0
+Authorization: Token d9b70d1185fa06f64b6055a0b5e82f323ffddc89
+Content-Type: application/json
+
+{
+  "date": "2022-03-14",
+  "items": [
+    {
+      "name": "First"
+    },
+    {
+      "name": "Second"
+    }
+  ]
+}
+
+### Get Menu
+
+GET http://localhost:8000/api/menu/1/
+Accept: application/json; version=1.0
+Authorization: Token d9b70d1185fa06f64b6055a0b5e82f323ffddc89
+Content-Type: application/json
+
+### Create Employee
+
+POST http://localhost:8000/api/employee/1/
+Accept: application/json; version=1.0
+Authorization: Token d9b70d1185fa06f64b6055a0b5e82f323ffddc89
+Content-Type: application/json
+
+{
+  "user": {
+    "username": "test5",
+    "password": "123456"
+  }
+}
+
+### Authentication employee: get token
+
+POST http://localhost:8000/api/token/
+Accept: application/json; version=1.0
+Content-Type: application/json
+
+{
+  "username": "test5",
+  "password": "123456"
+}
+
+### Employee: get current day menu
+
+GET http://localhost:8000/api/current-day-menu/
+Accept: application/json; version=1.0
+Authorization: Token e63197f16ff73ae80722c67591cef5f369dc8b04
+
+### Employee: vote current day menu
+
+PUT http://localhost:8000/api/current-day-menu/vote/
+Accept: application/json; version=1.0
+Authorization: Token e63197f16ff73ae80722c67591cef5f369dc8b04
+Content-Type: application/json
+
+{
+  "value": 1
+}
+
+### Menu: result of the day
+
+GET http://localhost:8000/api/current-day-menu/result/
+Accept: application/json; version=1.0
+Authorization: Token e63197f16ff73ae80722c67591cef5f369dc8b04

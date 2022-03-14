@@ -1,0 +1,15 @@
+# IntelliJ project files
+.idea
+__pycache__/
+
+# logs
+logs/
+
+# backups
+backups/
+
+# nohup
+nohup.out
+
+# uploads
+uploads/
