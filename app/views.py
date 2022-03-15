@@ -128,11 +128,3 @@ class EmployeeView(mixins.CreateModelMixin, GenericViewSet):
     queryset = Employee.objects.all()
     serializer_class = EmployeeSerializer
     permission_classes = (IsAuthenticated,)
-
-
-class HelloView(APIView):
-    permission_classes = (IsAuthenticated,)
-
-    def get(self, request):
-        content = {'message': 'Hello, World!'}
-        return Response(content)

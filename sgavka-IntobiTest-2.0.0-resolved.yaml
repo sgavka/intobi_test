@@ -1,0 +1,154 @@
+---
+openapi: 3.0.0
+info:
+  title: Intobi Test
+  version: 2.0.0
+servers:
+- url: https://virtserver.swaggerhub.com/sgavka/IntobiTest/2.0.0
+  description: SwaggerHub API Auto Mocking
+paths:
+  /api/token:
+    post:
+      summary: Get user token
+      responses:
+        "200":
+          description: OK
+          content:k
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Token'
+  /api/restaurant:
+    post:
+      summary: Create restaurant
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Restaurant'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Restaurant'
+  /api/menu/<restaurant_id>:
+    post:
+      summary: Create menu
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ArrayOfMenu'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfMenu'
+  /api/employee/<restaurant_id>:
+    post:
+      summary: Create employee for specific restaurant
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Employee'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
+  /api/current-day-menu:
+    get:
+      summary: Get for employee menu for day
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfMenu'
+  /api/current-day-menu/vote:
+    post:
+      summary: Vote for menu of the day
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ArrayOfVote'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfVote'
+  /api/current-day-menu/result:
+    get:
+      summary: Get for employee result day menu
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArrayOfVote'
+components:
+  schemas:
+    Token:
+      type: object
+      properties:
+        token:
+          type: string
+    Restaurant:
+      type: object
+      properties:
+        name:
+          type: string
+    Vote:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+    Employee:
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/Employee_user'
+    Menu:
+      type: object
+      properties:
+        date:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Menu_items'
+    ArrayOfVote:
+      type: array
+      items:
+        $ref: '#/components/schemas/Vote'
+    ArrayOfMenu:
+      type: array
+      items:
+        $ref: '#/components/schemas/Menu'
+    Employee_user:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+      example: null
+    Menu_items:
+      type: object
+      properties:
+        name:
+          type: string
+      example: null

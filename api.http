@@ -9,12 +9,6 @@ Content-Type: application/json
   "password": "123456"
 }
 
-### Authentication Test
-
-GET http://localhost:8000/api/test/
-Accept: application/json; version=v1.0
-Authorization: Token d9b70d1185fa06f64b6055a0b5e82f323ffddc89
-
 ### Create Restaurant
 
 POST http://localhost:8000/api/restaurant/
