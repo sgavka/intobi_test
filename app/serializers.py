@@ -61,8 +61,8 @@ class EmployeeSerializer(serializers.ModelSerializer):
 
 
 class VoteSerializer(serializers.ModelSerializer):
-    menu = serializers.IntegerField(write_only=True)
-    employee = serializers.IntegerField(write_only=True)
+    menu = serializers.IntegerField(write_only=True, source='menu_id')
+    employee = serializers.IntegerField(write_only=True, source='employee_id')
 
     class Meta:
         model = Vote
@@ -74,7 +74,7 @@ class MenuSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Menu
-        fields = ('date', 'items')
+        fields = ('id', 'date', 'items')
 
     def create(self, validated_data):
         with transaction.atomic():
@@ -84,16 +84,16 @@ class MenuSerializer(serializers.ModelSerializer):
                 restaurant = Restaurant.objects.get(pk=pk)
             except Restaurant.DoesNotExist:
                 raise serializers.ValidationError('Restaurant does not exists.')
-            try:
-                Menu.objects.get(date=validated_data['date'], restaurant=restaurant)
+            menu = Menu.objects.filter(date=validated_data['date'], restaurant=restaurant).first()
+            if menu and request.version == 'v1.0':
                 raise serializers.ValidationError('Menu for this date already exists.')
-            except Menu.DoesNotExist:
-                menu = Menu.objects.create(date=validated_data['date'], restaurant=restaurant)
+            return self._create_menu(restaurant, validated_data)
 
-                for item_data in validated_data['items']:
-                    item = MenuItem.objects.create(menu=menu, name=item_data['name'])
-
-                return menu
+    def _create_menu(self, restaurant, validated_data):
+        menu = Menu.objects.create(date=validated_data['date'], restaurant=restaurant)
+        for item_data in validated_data['items']:
+            item = MenuItem.objects.create(menu=menu, name=item_data['name'])
+        return menu
 
     def validate_items(self, data):
         if len(data) == 0:

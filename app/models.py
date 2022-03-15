@@ -19,9 +19,6 @@ class Menu(models.Model):
     date = models.DateField()
     restaurant = models.ForeignKey(Restaurant, models.CASCADE)
 
-    class Meta:
-        unique_together = [('date', 'restaurant')]
-
 
 class MenuItem(models.Model):
     id = models.AutoField(primary_key=True)

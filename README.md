@@ -14,6 +14,11 @@
 
 # Develop
 
+## Allow editing files
+```shell
+sudo chown -R $USER:$USER .
+```
+
 ## Start
 1. Build & setup project
 

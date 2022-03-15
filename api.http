@@ -1,7 +1,7 @@
 ### Authentication: get token
 
 POST http://localhost:8000/api/token/
-Accept: application/json; version=1.0
+Accept: application/json; version=v1.0
 Content-Type: application/json
 
 {
@@ -12,13 +12,13 @@ Content-Type: application/json
 ### Authentication Test
 
 GET http://localhost:8000/api/test/
-Accept: application/json; version=1.0
+Accept: application/json; version=v1.0
 Authorization: Token d9b70d1185fa06f64b6055a0b5e82f323ffddc89
 
 ### Create Restaurant
 
 POST http://localhost:8000/api/restaurant/
-Accept: application/json; version=1.0
+Accept: application/json; version=v1.0
 Authorization: Token d9b70d1185fa06f64b6055a0b5e82f323ffddc89
 Content-Type: application/json
 
@@ -29,12 +29,12 @@ Content-Type: application/json
 ### Create Menu
 
 POST http://localhost:8000/api/menu/1/
-Accept: application/json; version=1.0
+Accept: application/json; version=v1.0
 Authorization: Token d9b70d1185fa06f64b6055a0b5e82f323ffddc89
 Content-Type: application/json
 
 {
-  "date": "2022-03-14",
+  "date": "2022-03-15",
   "items": [
     {
       "name": "First"
@@ -45,17 +45,29 @@ Content-Type: application/json
   ]
 }
 
-### Get Menu
+### Create Menu V2
 
-GET http://localhost:8000/api/menu/1/
-Accept: application/json; version=1.0
+POST http://localhost:8000/api/menu/1/
+Accept: application/json; version=v2.0
 Authorization: Token d9b70d1185fa06f64b6055a0b5e82f323ffddc89
 Content-Type: application/json
+
+{
+  "date": "2022-03-15",
+  "items": [
+    {
+      "name": "3"
+    },
+    {
+      "name": "4"
+    }
+  ]
+}
 
 ### Create Employee
 
 POST http://localhost:8000/api/employee/1/
-Accept: application/json; version=1.0
+Accept: application/json; version=v1.0
 Authorization: Token d9b70d1185fa06f64b6055a0b5e82f323ffddc89
 Content-Type: application/json
 
@@ -69,7 +81,7 @@ Content-Type: application/json
 ### Authentication employee: get token
 
 POST http://localhost:8000/api/token/
-Accept: application/json; version=1.0
+Accept: application/json; version=v1.0
 Content-Type: application/json
 
 {
@@ -80,22 +92,52 @@ Content-Type: application/json
 ### Employee: get current day menu
 
 GET http://localhost:8000/api/current-day-menu/
-Accept: application/json; version=1.0
+Accept: application/json; version=v1.0
 Authorization: Token e63197f16ff73ae80722c67591cef5f369dc8b04
 
 ### Employee: vote current day menu
 
 PUT http://localhost:8000/api/current-day-menu/vote/
-Accept: application/json; version=1.0
+Accept: application/json; version=v1.0
 Authorization: Token e63197f16ff73ae80722c67591cef5f369dc8b04
 Content-Type: application/json
 
 {
-  "value": 1
+  "value": 3
 }
 
 ### Menu: result of the day
 
 GET http://localhost:8000/api/current-day-menu/result/
-Accept: application/json; version=1.0
+Accept: application/json; version=v1.0
+Authorization: Token e63197f16ff73ae80722c67591cef5f369dc8b04
+
+### Employee: get current day menu V2
+
+GET http://localhost:8000/api/current-day-menu/
+Accept: application/json; version=v2.0
+Authorization: Token e63197f16ff73ae80722c67591cef5f369dc8b04
+
+### Employee: vote current day menu V2
+
+PUT http://localhost:8000/api/current-day-menu/vote/
+Accept: application/json; version=v2.0
+Authorization: Token e63197f16ff73ae80722c67591cef5f369dc8b04
+Content-Type: application/json
+
+[
+  {
+    "id": 4,
+    "value": 2
+  },
+  {
+    "id": 5,
+    "value": 5
+  }
+]
+
+### Menu: result of the day V2
+
+GET http://localhost:8000/api/current-day-menu/result/
+Accept: application/json; version=v2.0
 Authorization: Token e63197f16ff73ae80722c67591cef5f369dc8b04
